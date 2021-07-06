@@ -59,12 +59,15 @@ const useCanvasListeners = ({
 
     window.addEventListener(EventType.MOUSE_MOVE, update);
     window.addEventListener(EventType.MOUSE_UP, update);
+    
     EditorModel.canvas.addEventListener(EventType.MOUSE_DOWN, update);
 
     return () => {
       window.removeEventListener(EventType.MOUSE_MOVE, update);
       window.removeEventListener(EventType.MOUSE_UP, update);
-      EditorModel.canvas.removeEventListener(EventType.MOUSE_DOWN, update);
+      if (EditorModel.canvas) {
+        EditorModel.canvas.removeEventListener(EventType.MOUSE_DOWN, update);
+      }
     };
   }, [imageDragMode, onClick, onHover, onLabelsDataChange, onMouseOut]);
 
